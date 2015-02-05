@@ -1,0 +1,12 @@
+diff -ur original/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml patched/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml
+--- original/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml	2015-02-05 02:23:52.722445210 -0300
++++ patched/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml	2015-02-05 02:15:11.895935795 -0300
+@@ -146,6 +146,8 @@
+         font.pixelSize: Theme.fontSizeSmall
+ 
+         property bool empty: text.length === 0 && !inputMethodComposing
++        EnterKey.onClicked: chatInputArea.send()
++        EnterKey.iconSource: "image://theme/icon-m-message"
+ 
+         placeholderText: contactName.length ?
+         //: Personalized placeholder for chat input, e.g. "Hi John"

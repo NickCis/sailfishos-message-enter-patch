@@ -1,0 +1,8 @@
+{
+    "name": "Enter key to send messages",
+    "description": "Enter key to send messages",
+    "category": "messages",
+    "infos": {
+        "maintainer": "nickcis"
+    }
+}
