@@ -10,7 +10,7 @@ BuildArch: noarch
 # << macros
 
 Summary:    A patch to send messages using the enter key for the jolla-messages app.
-Version:    0.0.1
+Version:    0.0.2
 Release:    1
 Group:      Qt/Qt
 License:    TODO
@@ -36,15 +36,32 @@ A patch to send messages using the enter key for the jolla-messages app.
 %install
 rm -rf %{buildroot}
 # >> install pre
-mkdir -p %{buildroot}/usr/share/patchmanager/patches/sailfishos-message-enter-patch
-cp -r patch/* %{buildroot}/usr/share/patchmanager/patches/sailfishos-message-enter-patch
+mkdir -p %{buildroot}/usr/share/patchmanager/patches/%{name}
+cp -r patch/* %{buildroot}/usr/share/patchmanager/patches/%{name}
+mkdir -p %{buildroot}/usr/lib/qt5/qml/org/nickcis/base
+cp -r org/* %{buildroot}/usr/lib/qt5/qml/org
 # << install pre
 
 # >> install post
 # << install post
 
+%pre
+# >> pre
+if [ -f /usr/sbin/patchmanager ]; then
+    /usr/sbin/patchmanager -u %{name} || true
+fi
+# << pre
+
+%preun
+# >> preun
+if [ -f /usr/sbin/patchmanager ]; then
+    /usr/sbin/patchmanager -u %{name} || true
+fi
+# << preun
+
 %files
 %defattr(-,root,root,-)
-%{_datadir}/patchmanager/patches/sailfishos-message-enter-patch
 # >> files
+%{_datadir}/patchmanager/patches/%{name}
+%{_libdir}/qt5/qml/org/nickcis/base
 # << files

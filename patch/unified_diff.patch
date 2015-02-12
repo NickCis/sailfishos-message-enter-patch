@@ -1,11 +1,37 @@
 diff -ur original/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml patched/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml
 --- original/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml	2015-02-05 02:23:52.722445210 -0300
-+++ patched/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml	2015-02-05 02:15:11.895935795 -0300
-@@ -146,6 +146,8 @@
++++ patched/usr/share/jolla-messages/pages/conversation/ChatTextInput.qml	2015-02-12 01:36:37.834640926 -0300
+@@ -4,6 +4,7 @@
+ import org.nemomobile.commhistory 1.0
+ import Sailfish.Contacts 1.0
+ import "../common/utils.js" as MessageUtils
++import org.nickcis.base 1.0
+ 
+ InverseMouseArea {
+     id: chatInputArea
+@@ -132,7 +133,8 @@
+         }
+     }
+ 
+-    TextArea {
++    //TextArea {
++    MyTextArea {
+         id: textField
+         anchors {
+             left: parent.left
+@@ -146,6 +148,16 @@
          font.pixelSize: Theme.fontSizeSmall
  
          property bool empty: text.length === 0 && !inputMethodComposing
-+        EnterKey.onClicked: chatInputArea.send()
++        //EnterKey.onClicked: chatInputArea.send()
++        onPressed: {
++            if(event.key == Qt.Key_Enter || event.key == Qt.Key_Return){
++                if(event.modifiers & Qt.ShiftModifier)
++                    return;
++                event.accepted = true;
++                chatInputArea.send()
++            }
++        }
 +        EnterKey.iconSource: "image://theme/icon-m-message"
  
          placeholderText: contactName.length ?
